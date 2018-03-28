@@ -1,0 +1,412 @@
+---
+swagger: '2.0'
+
+################################################################################
+#                       API Information                                        #
+################################################################################
+info:
+  version: "1.0"
+  title: Spring Data JPA - Pagination, Sorting and Filtering Demo
+  description: Spring Data JPA Demo with Spring boot, REST, swagger codegen, Filter, Paging and Sorting
+
+################################################################################
+#                  Host, Base Path, Schemes and Content Types                  #
+################################################################################
+host: localhost:8080
+basePath: /api/demo/springjpa
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  X-userId:
+    name: X-userId
+    in: header
+    description: User ID
+    type: string
+    required: false
+
+################################################################################
+#                      Paths                                                    #
+################################################################################
+paths:
+
+  /employees:
+    get:
+      tags:
+        - Employees
+      produces:
+        - application/json
+      consumes:
+        - "*/*"
+      description: Get employees details by employee Number
+      operationId: GetEmployees
+      parameters:
+        - name: firstName
+          in: query
+          description: Query param for 'firstName' filter
+          required: false
+          type: string      
+        - name: lastName
+          in: query
+          description: Query param for 'lastName' filter
+          required: false
+          type: string      
+        - name: dob
+          in: query
+          description: Query param for 'dob' filter
+          required: false
+          type: string
+        - name: joiningDate
+          in: query
+          description: Query param for 'joiningDate' filter
+          required: false
+          type: string
+        - name: salary
+          in: query
+          description: Query param for 'salary' filter
+          required: false
+          type: string
+        - name: pageNumber
+          in: query
+          description: Query param for 'pageNumber' 
+          required: false
+          type: integer
+          format: int32
+        - name: pageSize
+          in: query
+          description: Query param for 'pageSize' 
+          required: false
+          type: integer
+          format: int32
+        - name: sort
+          in: query
+          description: Query param for 'sort' criteria 
+          required: false
+          type: string
+
+
+          
+          
+      responses:
+        #Success
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Employees'
+        # Client Errors
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        404:
+          description: Resource not found
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        # Server Errors
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'  
+    post:
+      tags:
+        - Employees
+      description: Create Employee
+      operationId: CreateEmployee
+      parameters:
+      - in: "body"
+        name: "Request"
+        description: "Request object"
+        required: true
+        schema:
+          $ref: '#/definitions/Employee'
+      responses:
+        #Success
+        201:
+          description: OK
+          schema:
+            $ref: '#/definitions/EmployeeCreted'
+        # Client Errors
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        # Server Errors
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+            
+  /employees/{employeeNo}:
+    get:
+      tags:
+        - Employees
+      produces:
+        - application/json
+      consumes:
+        - "*/*"
+      description: Get employee details by employee Number
+      operationId: GetEmployee
+      parameters:
+        - name: employeeNo
+          in: path
+          description: Path param for 'employeeNo' 
+          required: true
+          type: integer
+          format: int32
+
+      responses:
+        #Success
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/EmployeeResponse'
+        # Client Errors
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        404:
+          description: Resource not found
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        # Server Errors
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+            
+    put:
+      tags:
+        - Employees
+      description: Update employee details
+      operationId: UpdateEmployee
+      parameters:
+        - name: employeeNo
+          in: path
+          description: Path param for 'employeeNo' 
+          required: true
+          type: integer
+          format: int32
+        - in: "body"
+          name: "Request"
+          description: "Request object"
+          required: true
+          schema:
+            $ref: '#/definitions/Employee'
+      responses:
+        #Success
+        204:
+          description: No content
+        # Client Errors
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        404:
+          description: Resource not found
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        # Server Errors
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'       
+            
+    patch:
+      tags:
+        - Employees
+      description: Update partial details of employee
+      operationId: PatchEmployee
+      parameters:
+        - name: employeeNo
+          in: path
+          description: Path param for 'employeeNo' 
+          required: true
+          type: integer
+          format: int32
+        - in: "body"
+          name: "Request"
+          description: "Request object"
+          required: true
+          schema:
+            $ref: '#/definitions/Employee'
+      responses:
+        #Success
+        204:
+          description: No content
+        # Client Errors
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        404:
+          description: Resource not found
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        # Server Errors
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'    
+            
+    delete:
+      tags:
+        - Employees
+      description: Delete employee details
+      operationId: DeleteEmployee
+      parameters:
+        - name: employeeNo
+          in: path
+          description: Path param for 'employeeNo' 
+          required: true
+          type: integer
+          format: int32
+        - in: "body"
+          name: "Request"
+          description: "Request object"
+          required: true
+          schema:
+            $ref: '#/definitions/Employee'
+      responses:
+        #Success
+        204:
+          description: No Content
+        # Client Errors
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        404:
+          description: Resource not found
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'
+        # Server Errors
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ResponseErrorModel'                
+
+
+
+################################################################################
+#                           Definitions                                        #
+################################################################################
+definitions:
+
+   # The Unsecured Lending Income Verification Application details model
+  Employees:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/EmployeeResource'
+      paging:
+        $ref: '#/definitions/PageAndSort'
+
+  Employee:
+    type: object
+    description: Request model to Create/Modify/Delete Employee
+    properties:
+      firstName:
+        type: string
+        maxLength: 36
+      lastName:
+        type: string
+        maxLength: 100
+      gender:
+        type: string
+        maxLength: 1
+      dob:
+        type: string
+        format: date
+      joiningDate:
+        type: string
+        format: date
+      salary:
+        type: integer
+        format: int64
+        
+  EmployeeResource:
+    allOf: 
+      - $ref: '#/definitions/Employee'
+      - type: object
+        properties:
+          employeeNo:
+            type: integer
+            format: int32            
+  EmployeeCreted:
+    type: object
+    properties:
+      employeeNo:
+        type: integer
+        format: int32            
+
+  EmployeeResponse:
+    type: object
+    description: Employee response
+    properties:
+      data:
+        $ref: '#/definitions/EmployeeResource'
+
+  PageAndSort:
+    type: object
+    description: Paging and sorting information
+    properties:
+      pageNumber:
+        type: integer
+        format: int32
+      pageSize:
+        type: integer
+        format: int32
+      totalNumberOfRecords:
+        type: integer
+        format: int64
+      totalNumberOfPages:
+        type: integer
+        format: int32        
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean        
+      sortingCriteria:
+        type: string
+
+  #Response Error model
+  ResponseErrorModel:
+    type: object
+    properties:
+      errors:
+        type: array
+        items:
+          $ref: '#/definitions/ErrorModel'
+
+  # Individual Error Object
+  ErrorModel:
+    type: object
+    description:  Represents an individual error
+    required:
+      - code
+      - type
+    properties:
+      code:
+        description:  Error Code
+        type: string
+      message:
+        description:  Error Message
+        type: string
+      type:
+        description:  Error Message
+        type: string
+        enum: [ERROR, WARN, INFO]
+      details:
+        description: Comma separated list of fields, which caused the error condition
+        type: string

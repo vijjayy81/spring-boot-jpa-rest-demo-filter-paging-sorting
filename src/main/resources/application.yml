@@ -1,0 +1,34 @@
+###########################################################################################################
+# 1.0 Spring Configuartions                                                                               #
+###########################################################################################################
+spring:
+  application:
+    name: spring-jpa-pagination-sorting-filtering-demo
+  jmx:
+    enabled: false
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  h2.console.enabled: true 
+    
+  datasource:
+    platform: h2
+    initialize: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: none
+    generate-ddl : true
+    hibernate:
+       naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+hibernate.dialect: org.hibernate.dialect.H2Dialect  
+
+h2.datasource.url: jdbc:h2:mem:testdb
+h2.datasource.driverClassName: org.h2.Driver
+h2.datasource.username: sa
+h2.datasource.password: 
+debug: true
+
+
