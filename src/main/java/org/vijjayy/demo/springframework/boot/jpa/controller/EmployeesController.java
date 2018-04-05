@@ -18,6 +18,13 @@ import org.vijjayy.demo.springframework.boot.jpa.v1.api.model.ApiModelEmployees;
 
 import io.swagger.annotations.ApiParam;
 
+/**
+ * Rest Controller implementing swagger spec codegen generated {@link EmployeesApi} 
+ * 
+ * 
+ * @author Vijjayy
+ *
+ */
 @RestController
 public class EmployeesController implements EmployeesApi {
 
@@ -25,6 +32,13 @@ public class EmployeesController implements EmployeesApi {
 
 	private final EmployeeFilterSpecification employeeFilterSpecification;
 
+	/**
+	 * 
+	 * Prefer Constructor Injection over field injection 
+	 * 
+	 * @param employeesDAO
+	 * @param employeeFilterSpecification
+	 */
 	public EmployeesController(EmployeesDAO employeesDAO, EmployeeFilterSpecification employeeFilterSpecification) {
 		super();
 		this.employeesDAO = employeesDAO;
@@ -43,18 +57,24 @@ public class EmployeesController implements EmployeesApi {
 			@ApiParam(value = "Query param for 'sort' criteria") @Valid @RequestParam(value = "sort", required = false) String sort) {
 
 		
-		
+		//Forms the specification for attributes by Filter specification builder from EmployeeFilterSpecification
+		//We can mix and match and, or, not conditions
 		Specification<Employee> specs = Specifications
+				//Exposed attributes in API swagger spec doesn't need to be same as Database table column names.
 				.where(employeeFilterSpecification.getStringTypeSpecification("firstName", firstName))
 				.and(employeeFilterSpecification.getStringTypeSpecification("lastName", lastName))
 				.and(employeeFilterSpecification.getLongTypeSpecification("salary", salary))
 				.and(employeeFilterSpecification.getDateTypeSpecification("dob", dob))
 				.and(employeeFilterSpecification.getDateTypeSpecification("joiningDate", joiningDate));
 		
+		
+		//This represents the Page config with sorting
 		PageRequest pageRequest = PageRequestBuilder.getPageRequest(pageSize, pageNumber, sort);
 		
+		//Call the DAO with specifications and pagerequest
 		ApiModelEmployees employees = employeesDAO.getEmployees(specs, pageRequest);
 		
+		//Return the sorting criteria back so that the consumer can pass the same sorting or of different sorting based on the usecases.
 		employees.getPaging().setSortingCriteria(sort);
 
 		return new ResponseEntity<>(employees, HttpStatus.OK);

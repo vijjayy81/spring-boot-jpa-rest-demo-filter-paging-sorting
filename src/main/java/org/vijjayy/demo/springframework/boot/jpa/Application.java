@@ -5,10 +5,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.vijjayy.demo.springframework.boot.jpa.repository.EmployeesRespository;
 
+
+/**
+ * 
+ * Demo application for Spring boot with REST API, Swagger codegen, Spring Data JPA, Hibernate, with Filter, Paging and Sorting 
+ * 
+ * @author Vijjayy
+ *
+ */
 @SpringBootApplication
-@EnableJpaRepositories(basePackageClasses = EmployeesRespository.class)
+@EnableJpaRepositories
 public class Application extends SpringBootServletInitializer {
 	
 	@Override

@@ -25,10 +25,12 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 hibernate.dialect: org.hibernate.dialect.H2Dialect  
 
-h2.datasource.url: jdbc:h2:mem:testdb
-h2.datasource.driverClassName: org.h2.Driver
-h2.datasource.username: sa
-h2.datasource.password: 
+## Data source config - Change here for any other datasource
+datasource:
+ url: jdbc:h2:mem:testdb
+ driverClassName: org.h2.Driver
+ username: sa
+ password: 
 debug: true
 
 

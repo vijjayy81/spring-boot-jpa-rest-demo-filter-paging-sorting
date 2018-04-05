@@ -13,12 +13,26 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 
+/**
+ * PageRequest bulder
+ * 
+ * @author Vijjayy
+ *
+ */
 public final class PageRequestBuilder {
 
 	private PageRequestBuilder() {
 		// Do nothing
 	}
 
+	/**
+	 * Constructs PageRequest
+	 * 
+	 * @param pageSize
+	 * @param pageNumber
+	 * @param sortingCriteria
+	 * @return
+	 */
 	public static PageRequest getPageRequest(Integer pageSize, Integer pageNumber, String sortingCriteria) {
 
 		Set<String> sortingFileds = new LinkedHashSet<>(

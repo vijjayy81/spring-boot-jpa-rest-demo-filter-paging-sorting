@@ -8,6 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+/**
+ * JPA Entity Class mapped to table 'Employee'
+ * 
+ * 
+ * @author Vijjayy
+ *
+ */
 @Entity(name = "Employee")
 public class Employee {
 

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.vijjayy.demo.springframework.boot.jpa</groupId>
-	<artifactId>spribg-boot-jpa-demo</artifactId>
+	<artifactId>spring-boot-jpa-rest-demo-filter-paging-sorting</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>

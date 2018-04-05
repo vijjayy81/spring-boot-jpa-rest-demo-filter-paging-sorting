@@ -19,6 +19,29 @@ public class EmployeesControllerTest {
 	@Value("${local.server.port}")
 	private int port;
 
+	
+	@Test
+	public void testGetEmployeesWithFilter() {
+		
+		// Salary < 150000, pageSize 5
+		Response response = RestAssured
+				.given().port(port).when()
+				.get("/employees?salary=lt:150000&sort=+salary&pageSize=5&pageNumber=1")
+				.peek();
+
+		Assert.assertEquals(200, response.getStatusCode());
+		
+		ApiModelEmployees responseObj = response.getBody().as(ApiModelEmployees.class);
+		
+		Assert.assertNotNull(responseObj);
+		Assert.assertNotNull(responseObj.getData());
+		Assert.assertNotNull(responseObj.getPaging());
+		Assert.assertEquals(5, responseObj.getData().size());
+		Assert.assertTrue(responseObj.getData().stream().allMatch(data -> data.getSalary() < 150000));
+		
+		
+	}
+	
 	@Test
 	public void testGetEmployees() {
 		

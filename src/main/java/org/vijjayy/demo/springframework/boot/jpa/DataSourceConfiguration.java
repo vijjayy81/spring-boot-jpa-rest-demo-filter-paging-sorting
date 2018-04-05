@@ -7,19 +7,27 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+/**
+ * 
+ * Data source configuration using tomcat JDBC Connection pool
+ * 
+ * @author Vijjayy
+ *
+ */
 @Configuration
 public class DataSourceConfiguration {
 
-	@Value("${h2.datasource.url}")
+	@Value("${datasource.url}")
 	private String datasourceUrl;
 	
-	@Value("${h2.datasource.driverClassName}")
+	@Value("${datasource.driverClassName}")
 	private String datasourceDriverClassName;
 	
-	@Value("${h2.datasource.username}")
+	@Value("${datasource.username}")
 	private String datasourceUserName;
 	
-	@Value("${h2.datasource.password}")
+	@Value("${datasource.password}")
 	private String datasourceCredential;
 
 	@Bean
