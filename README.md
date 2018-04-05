@@ -30,6 +30,8 @@ Sample
 ## Sorting
 'sort' query param with comma separated attributes prefixed with either '+' (ASC Order) or '-' (DESC Order) are converted to `org.springframework.data.domain.Sort` with `org.springframework.data.domain.PageRequest`
 
+Example: .....?sort=+salary,+joiningDate
+
 ## Technology stack
 -   Spring Boot
 -   Spring MVC
